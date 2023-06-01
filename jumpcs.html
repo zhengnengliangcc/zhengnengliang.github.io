@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>	转发三个群解锁内容</title>
+    <link rel="stylesheet" type="text/css" href="/assets/wx/aui.css?v=20201125">
+    <script src="/assets/wx/jquery.min.js"></script>
+    <script src="/assets/wx/layui/layui.js"></script>
+    <script src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+
+</head>
+<body style="overflow:hidden;background-color:rgb(240, 239, 244)">
+<div id="imgShare">
+    <p>
+        长按下方分享<br>分享后加入群聊
+    </p>
+    <div class="fingerBox">
+        <img class="newFinger" src="/assets/wx/newFinger.png" alt="">
+        <img class="finger" src="/assets/wx/finger.png" alt="">
+        <div class="circle"></div>
+    </div>
+    <img id="qrcode" class="qrcode" src="/index/index/doShowImg" alt="">
+</div>
+<header>
+    <div class="a header">
+        <img class="header_picture" src="/assets/wx/logo.png" alt="">
+        <h2 class="title">	全网首发新瓜(VIP)           </h2>
+        <h3 class="description">(共495人)            </h3>
+    </div>
+</header>
+<main>
+    <div id="mask" style=" display: none;  position: absolute;  top: 0%;  left: 0%;  width: 100%;  height: 100%;  background-color: black;  z-index:1001;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);"></div>
+    <div class="layer-show-share " style="z-index: 100">
+        <div class="div-share">
+            <img src="/assets/wx/sha.png">
+        </div>
+    </div>
+    <div class="layer-show-share1 " style="z-index: 100">
+        <div class="div-share1">
+            <img src="/assets/wx/shar.png">
+        </div>
+    </div>
+</main>
+<footer class="footer">
+    <div class="btns">
+        <h2 class="tip">确认加入群聊</h2>
+        <div class="btn">
+            <h2 class="checked">加入该群聊</h2>
+        </div>
+    </div>
+    <div class="dis">
+        <h2 align="center" style="font-family: 黑体">	加群主审核进群            </h2>
+        <img src="/uploads/20230203/e77b8cd477ffd1110784558faef83b39.png" alt="" width="70%" style="margin: 5% auto 5% auto">
+    </div>
+</footer>
+<script type="text/javascript">
+    var oDate = new Date();
+    // $('#time').text(oDate.getHours() + ':' + oDate.getMinutes());
+
+    $(document).ready(function() {
+        $('.btn').click(function() {
+            var shareType = 1;
+            if(shareType==3){
+                $('.dis').show();
+                $('.btns').hide();
+            }
+            if (1) {
+                $('#imgShare').show();
+            } else if (0) {
+
+                function jump(count) {
+                    window.setTimeout(function() {
+                        count--;
+                        if (count == 7) {
+                            $('.layer-show-share').show();
+                            $('.layer-show-share1').hide();
+                        }
+                        if (count > 0) {
+                            //$('#last').attr('innerHTML', count);
+                            jump(count);
+                        } else {
+                            $('.layer-show-share').hide();
+                            $('.layer-show-share1').hide();
+                            $('.dis').show();
+                            $('.btns').hide();
+                        }
+                    }, 1000);
+                }
+                layer.alert('亲，需要分享到一个微信群哦',{"title":""},function(index){
+
+                    layer.close(index);
+                    $('.layer-show-share1').show();
+                    jump(14);
+
+                });
+
+
+            } else {
+
+                $('.dis').show();
+                $('.btns').hide();
+
+            }
+        });
+
+        function longPress(id, func) {
+            var timeOutEvent;
+            $("#"+id).on({
+                touchstart:function (e) {
+                    clearTimeout(timeOutEvent);
+                    timeOutEvent = setTimeout(function() {
+                        func();
+                    }, 300);
+                },
+                touchmove:function () {
+                    clearTimeout(timeOutEvent);
+                },
+                touchend:function () {
+                    clearTimeout(timeOutEvent);
+                }
+            })
+
+            
+        }
+
+        var num = 0;
+
+if(	1==1) {
+            function yinliujidi() {
+                num += 1;
+                if (num >= 2) {
+                    setTimeout(function() {
+                        $('#imgShare').hide();
+                        $('.dis').show();
+                        $('.btns').hide();
+                    }, 6000);
+                }
+                setTimeout(function() {
+                    $('#imgShare > p').html('<span style="color: red;">请再次长按分享</span><br>分享后加入群聊');
+                }, 6000);
+            }
+       } else {
+            function yinliujidi() {
+                setTimeout(function() {
+                    $('#imgShare').hide();
+                    $('.dis').show();
+                    $('.btns').hide();
+                }, 6000);
+            }
+   php }
+
+        longPress('qrcode', yinliujidi)
+    });
+
+    wx.ready(function() {
+        wx.hideMenuItems({
+            menuList: ["menuItem:copyUrl"]
+        });
+
+        wx.updateAppMessageShareData({
+            title: '邀请你加入群聊',
+            desc: '群主邀请你加入群聊全网首发新瓜(VIP)，点击进入可查看详情。',
+            link: 'http://lb.xztg666.cn',
+            imgUrl: '/assets/wx/logo.png'
+        });
+        wx.updateTimelineShareData({
+            title: '邀请你加入群聊',
+            link: 'http://lb.xztg666.cn',
+            imgUrl: '/assets/wx/logo.png'
+        });
+        wx.onMenuShareTimeline({
+            title: '邀请你加入群聊',
+            link: 'http://lb.xztg666.cn',
+            imgUrl: '/assets/wx/logo.png'
+        });
+        wx.onMenuShareAppMessage({
+            title: '邀请你加入群聊',
+            desc: '群主邀请你加入群聊全网首发新瓜(VIP)，点击进入可查看详情。',
+            link: 'http://lb.xztg666.cn',
+            imgUrl: '/assets/wx/logo.png'
+        });
+        wx.error(function(res) {
+            console.log(res);
+        });
+    });
+
+</script>
+</body>
+</html>
